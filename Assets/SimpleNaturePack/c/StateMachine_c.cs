@@ -9,7 +9,9 @@ public class StateMachine_c : MonoBehaviour
         idle,
         walking,
         swimming,
-        climbing
+        climbing,
+        observe,
+        shade
     }
 
     public State currentState = State.idle;
@@ -30,6 +32,8 @@ public class StateMachine_c : MonoBehaviour
             case State.walking: Walking(); break;
             case State.swimming: Swimming(); break;
             case State.climbing: Climbing(); break;
+            case State.observe: Observe(); break;
+            case State.shade: Shade(); break;
             default: break;
         }
     }
@@ -44,6 +48,14 @@ public class StateMachine_c : MonoBehaviour
         {
             currentState = State.climbing;
         }
+        else if(other.name == "MonolithTrigger")
+        {
+            currentState = State.observe;
+        }
+        else if(other.name == "ShadeTrigger")
+        {
+            currentState = State.shade;
+        }
     }
 
     void OnTriggerExit(Collider other)
@@ -51,6 +63,14 @@ public class StateMachine_c : MonoBehaviour
         currentState = State.walking;
     }
 
+    void Shade()
+    {
+        Debug.Log("Much cooler from the sun");
+    }
+    void Observe()
+    {
+        Debug.Log("Hmmm.. Facinating...");
+    }
     void Swimming()
     {
         Debug.Log("I am Swimming");
